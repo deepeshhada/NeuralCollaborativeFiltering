@@ -95,7 +95,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dataset_name",
         type=str,
-        default="InstantVideo",
+        default="MusicalInstruments",
         choices=("InstantVideo", "MusicalInstruments", "MovieLens"),
         help="Name of the Dataset."
     )
