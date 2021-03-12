@@ -74,6 +74,9 @@ class NCFData(object):
 			user_list=users,
 			item_list=items,
 			rating_list=ratings)
+		df = pd.DataFrame(columns=('users', 'items', 'ratings'))
+		df['users'], df['items'], df['ratings'] = dataset.user_list, dataset.item_list, dataset.rating_list
+		df.to_csv('./saved_datasets/train.csv', sep='\t', index=False, header=False)
 		return torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True, num_workers=4)
 
 	def get_test_instance(self):
@@ -91,7 +94,18 @@ class NCFData(object):
 			user_list=users,
 			item_list=items,
 			rating_list=ratings)
+		df = pd.DataFrame(columns=('users', 'items', 'ratings'))
+		df['users'], df['items'], df['ratings'] = dataset.user_list, dataset.item_list, dataset.rating_list
+		df.to_csv('./saved_datasets/test.csv', sep='\t', index=False, header=False)
 		return torch.utils.data.DataLoader(dataset, batch_size=self.num_ng_test+1, shuffle=False, num_workers=4)
+
+	def save_dataframe(self, dataset, mode):
+		df = pd.DataFrame(
+			data=(dataset.user_list, dataset.item_list, dataset.rating_list),
+			columns=('users', 'items', 'ratings')
+		)
+		df.to_csv('./saved_datasets/train.csv', sep='/t', index=False, header=False)
+		# df['users'], df['items'], df['ratings'] = dataset.user_list, dataset.item_list, dataset.rating_list
 
 
 class RatingDataset(torch.utils.data.Dataset):
